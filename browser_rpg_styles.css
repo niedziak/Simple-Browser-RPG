@@ -1,0 +1,61 @@
+:root {
+    --main-bg-color: black;
+    --main-text-color: white;
+  }
+
+body {
+    width: 80%;
+    margin: 15px auto;
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
+    text-align: center;
+}
+
+div.gameTitle {
+    font-weight: bold;
+    width: 70%;
+    margin: 10px auto 10px auto;
+    border: 3px solid white;
+    border-radius: 12px;
+}
+
+p.gameTitle {
+    font-size: 300%;
+    margin: 10px 0px;
+}
+
+div.playerBar {
+    display: inline-block;
+    float: right;
+    width: 120px;    
+}
+
+div.hpCounter {
+    display: inline-block;
+    width: 100px;
+    padding: 3px 8px;
+    margin: 5px auto;
+    border: 3px solid white;
+    border-radius: 8px;
+}
+
+p.hpCounter {
+    display: inline;
+    font-size: 150%;
+}
+
+button.invButton {
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
+    border: 3px solid white;
+    border-radius: 5px;
+}
+
+#invWindow {
+    display: inline-block;
+    width: 100px;
+    padding: 3px 5px;
+    margin: 5px auto;
+    border: 3px solid white;
+    border-radius: 8px;
+}

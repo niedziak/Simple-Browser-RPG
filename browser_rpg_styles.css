@@ -4,16 +4,19 @@
   }
 
 body {
-    width: 80%;
-    margin: 15px auto;
     color: var(--main-text-color);
     background-color: var(--main-bg-color);
     text-align: center;
 }
 
+div.main {
+    width: 1000px;
+    padding: 2px 10px;
+    margin: 15px auto;
+}
+
 div.gameTitle {
     font-weight: bold;
-    width: 70%;
     margin: 10px auto 10px auto;
     border: 3px solid white;
     border-radius: 12px;
@@ -22,6 +25,16 @@ div.gameTitle {
 p.gameTitle {
     font-size: 300%;
     margin: 10px 0px;
+}
+
+div.randomEvents {
+    width: 850px;
+    height: 50px;
+    float: left;
+    padding: 3px 8px;
+    margin: 5px auto;
+    border: 3px solid white;
+    border-radius: 8px;
 }
 
 div.playerBar {

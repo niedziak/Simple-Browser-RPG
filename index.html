@@ -8,27 +8,43 @@
 </head>
 
 <body>
+<div class="main">
 <!-- game title -->
     <div class="gameTitle">
         <p class="gameTitle">GAME TITLE</p>
     </div>
 
+<!-- random events window -->
+    <div class="randomEvents">
+        <p id="rndevtWindow"></p>
+    </div>
+
+<!-- player bar -->
     <div class="playerBar">
-<!-- hp meter -->
+    <!-- hp meter -->
         <div class="hpCounter">
             <p class="hpCounter">Life:</p> <p class="hpCounter" id="hpWindow">100</p>
         </div>
 
     <br>
 
-<!-- inventory -->
+    <!-- inventory -->
         <p id="invWindow"></p>
     <br>
         <button class="invButton" onclick="invChange(-1)"><</button>
         <button class="invButton" onclick="invChange(1)">></button>
     </div>
-    
-    <script src="browser_rpg_scripts.js"></script>
+</div>
+
+<!-- test buttons -->
+<div class="testButtons">
+    <button onclick="hpChange(-2,-10,0)">ONE HIT</button>
+    <button onclick="randomEvent()">RANDOM EVENT</button>
+</div>
+
+<!-- scripts -->
+<script src="browser_rpg_scripts.js"></script>
+
 </body>
 
 </html>

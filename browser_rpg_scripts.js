@@ -2,11 +2,9 @@ var plyr_hp = 100; // player's hp
 var inv = ["Item 1","Item 2","Item 3"]; // inventory
 var invindx = 0; // inventory index
 
-document.getElementById("invWindow").innerHTML = inv[0]; // presenting item at start
-
 // change in player hp
 function hpChange(mindmg,maxdmg,bnsdmg) {
-    plyr_hp += (Math.floor(Math.random() * (maxdmg - mindmg + 1) + mindmg)) + bnsdmg;
+    plyr_hp += (Math.floor(Math.random() * (maxdmg - mindmg + 1) + mindmg)) + bnsdmg; // random damage between min and max value + bonus
 
     // hp bounds
     if (plyr_hp > 100) {
@@ -18,7 +16,7 @@ function hpChange(mindmg,maxdmg,bnsdmg) {
     document.getElementById("hpWindow").innerHTML = plyr_hp;
 }
 
-// switching items in inventory
+// cycling items in inventory
 function invChange(chng) {
     invindx += chng;
 
@@ -29,6 +27,17 @@ function invChange(chng) {
     }
 
     document.getElementById("invWindow").innerHTML = inv[invindx];
+}
+
+// inventory list
+function invListing() {
+    var invL = "";
+    var i = 0;
+    for (; i < inv.length ;) {
+        invL += inv[i] + "<br>";
+        i++;
+    }
+    document.getElementById("invList").innerHTML = invL;
 }
 
 // random events
@@ -59,3 +68,6 @@ function randomEvent() {
             break;
     }
 }
+
+document.body.onload = invChange(0); // filling inventory window when page loads
+document.body.onload = invListing(); // filling inventory list when page loads

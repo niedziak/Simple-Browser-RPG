@@ -10,36 +10,40 @@
 <body>
 <div class="main">
 <!-- game title -->
-    <div class="gameTitle">
+    <div class="gameTitle border">
         <p class="gameTitle">GAME TITLE</p>
     </div>
 
 <!-- random events window -->
-    <div class="randomEvents">
+    <div class="randomEvents border">
         <p id="rndevtWindow"></p>
     </div>
 
 <!-- player bar -->
     <div class="playerBar">
     <!-- hp meter -->
-        <div class="hpCounter">
+        <div class="hpCounter border">
             <p class="hpCounter">Life:</p> <p class="hpCounter" id="hpWindow">100</p>
         </div>
 
     <br>
 
-    <!-- inventory -->
-        <p id="invWindow"></p>
+    <!-- inventory window -->
+        <p id="invWindow" class="inv border"></p>
     <br>
-        <button class="invButton" onclick="invChange(-1)"><</button>
-        <button class="invButton" onclick="invChange(1)">></button>
+    <!-- inventory cycle buttons -->
+        <button class="invButton border" onclick="invChange(-1)"><</button>
+        <button class="invButton border" onclick="invChange(1)">></button>
+    <br>
+    <!-- inventory list -->
+        <p id="invList" class="inv border"></p>
     </div>
 </div>
 
 <!-- test buttons -->
 <div class="testButtons">
-    <button onclick="hpChange(-2,-10,0)">ONE HIT</button>
-    <button onclick="randomEvent()">RANDOM EVENT</button>
+    <button class="border" onclick="hpChange(-2,-10,0)">ONE HIT</button>
+    <button class="border" onclick="randomEvent()">RANDOM EVENT</button>
 </div>
 
 <!-- scripts -->

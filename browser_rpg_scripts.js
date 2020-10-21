@@ -1,8 +1,11 @@
+document.body.onload = invChange(0); // filling inventory window when page loads
+document.body.onload = invListing(); // filling inventory list when page loads
+
 var plyr_hp = 100; // player's hp
-var inv = ["Item 1","Item 2","Item 3"]; // inventory
+var inv = ["+health","Item 2","Item 3"]; // inventory
 var invindx = 0; // inventory index
 
-// change in player hp
+// change in player's hp
 function hpChange(mindmg,maxdmg,bnsdmg) {
     plyr_hp += (Math.floor(Math.random() * (maxdmg - mindmg + 1) + mindmg)) + bnsdmg; // random damage between min and max value + bonus
 
@@ -14,6 +17,21 @@ function hpChange(mindmg,maxdmg,bnsdmg) {
     }
 
     document.getElementById("hpWindow").innerHTML = plyr_hp;
+}
+
+// using item
+function useItem() {
+    switch (inv[invindx]) { //item effect check
+        case "+health":
+            hpChange(0,0,10);
+            break;
+        default:
+            break;
+    }
+
+    inv.splice(invindx,1); //removing item from inventory
+
+    invListing(); // updating items list after remove
 }
 
 // cycling items in inventory
@@ -50,10 +68,13 @@ function randomEvent() {
         case 3:
             document.getElementById("rndevtWindow").innerHTML = "Event 2";
             break;
+        // adding +health item to inventory
         case 4:
         case 5:
         case 6:
-            document.getElementById("rndevtWindow").innerHTML = "Event 3";
+            document.getElementById("rndevtWindow").innerHTML = "You get +health";
+            inv.push("+health"); // adding item to inventory array
+            invListing(); // updating inventory list after getting new item
             break;
         case 7:
         case 8:
@@ -68,6 +89,3 @@ function randomEvent() {
             break;
     }
 }
-
-document.body.onload = invChange(0); // filling inventory window when page loads
-document.body.onload = invListing(); // filling inventory list when page loads

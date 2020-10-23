@@ -1,56 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="browser_rpg_styles.css">
-    <title>Document</title>
-</head>
+var plyr_hp = 100; // player's hp
+var inv = ["Parówa","Miodek","Uran"]; // inventory
+var invindx = 0; // inventory index
 
-<body>
-<div class="main">
-<!-- game title -->
-    <div class="gameTitle border">
-        <p class="gameTitle">GAME TITLE</p>
-    </div>
+// change in player's hp
+function hpChange(mindmg,maxdmg,bnsdmg) {
+    plyr_hp += (Math.floor(Math.random() * (maxdmg - mindmg + 1) + mindmg)) + bnsdmg; // random damage between min and max value + bonus
 
-<!-- random events window -->
-    <div class="randomEvents border">
-        <p id="rndevtWindow"></p>
-    </div>
+    // hp bounds
+    if (plyr_hp > 100) {
+        plyr_hp = 100;
+    } else if (plyr_hp < 0) {
+        plyr_hp = 0;
+    }
 
-<!-- player bar -->
-    <div class="playerBar">
-    <!-- hp meter -->
-        <div class="hpCounter border">
-            <p class="hpCounter">Life:</p> <p class="hpCounter" id="hpWindow">100</p>
-        </div>
+    document.getElementById("hpWindow").innerHTML = plyr_hp;
+}
 
-    <br>
+// using inventory item
+function invUse() {
+	switch (inv[invindx]) {
+		case "Parówa":
+			hpChange(0,0,10);
+			break;
+		case "Miodek":
+			hpChange(0,0,5);
+			break;
+		case "Uran":
+			hpChange(0,0,-15);
+			break;
+		default:
+			break;
+	}
+	inv.splice(invindx,1);
+	invListing();
+	invChange(0);	
+}
 
-    <!-- inventory window -->
-        <p id="invWindow" class="inv border"></p>
-    <br>
-    <!-- use item button -->
-	<button class="invButton border" onclick="invUse()">USE</button>	
-    <!-- inventory cycle buttons -->
-        <button class="invButton border" onclick="invChange(-1)"><</button>
-        <button class="invButton border" onclick="invChange(1)">></button>
-    <br>
-    <!-- inventory list -->
-        <p id="invList" class="inv border"></p>
-    </div>
-</div>
+// cycling items in inventory
+function invChange(chng) {
+    invindx += chng;
 
-<!-- test buttons -->
-<div class="testButtons">
-    <button class="border" onclick="hpChange(-2,-10,0)">ONE HIT</button>
-    <button class="border" onclick="randomEvent()">RANDOM EVENT</button>
-</div>
+	if (inv.length != 0) {
+		if (invindx <= -1) {
+			invindx = inv.length - 1;
+		} else if (invindx >= inv.length) {
+			invindx = 0;
+		}
+		document.getElementById("invWindow").innerHTML = inv[invindx];
+	} else {
+		document.getElementById("invWindow").innerHTML = "EMPTY";
+	}
+}
 
-<!-- scripts -->
-<script src="browser_rpg_scripts.js"></script>
+// inventory list
+function invListing() {
+    inv.sort();
+	var invL = "";
+    var i = 0;
+    for (; i < inv.length ;) {
+        invL += inv[i] + "<br>";
+        i++;
+    }
+    document.getElementById("invList").innerHTML = invL;
+}
 
-</body>
+// random events
+function randomEvent() {
+    switch (Math.ceil(Math.random()*10)) {
+        case 1:
+            document.getElementById("rndevtWindow").innerHTML = "Znalazłeś URAN!!!";
+			inv.push("Uran");
+			invListing();
+            break;
+        case 2:
+        case 3:
+			document.getElementById("rndevtWindow").innerHTML = "Znalazłeś parówę!";
+			inv.push("Parówa");
+			invListing();
+            break;
+        case 4:
+        case 5:
+        case 6:
+            document.getElementById("rndevtWindow").innerHTML = "Znalazłeś miodek!";
+			inv.push("Miodek");
+			invListing();
+            break;
+        case 7:
+        case 8:
+        case 9:
+            document.getElementById("rndevtWindow").innerHTML = "Nic się nie stało.";
+            break;
+        case 10:
+            document.getElementById("rndevtWindow").innerHTML = "Wywalenie prądu!";
+			hpChange(0,0,-10);
+            break;  
+        default:
+            document.getElementById("rndevtWindow").innerHTML = "default";
+            break;
+    }
+}
 
-</html>
+document.body.onload = invChange(0); // filling inventory window when page loads
+document.body.onload = invListing(); // filling inventory list when page loads

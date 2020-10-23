@@ -1,6 +1,3 @@
-document.body.onload = invChange(0); // filling inventory window when page loads
-document.body.onload = invListing(); // filling inventory list when page loads
-
 var plyr_hp = 100; // player's hp
 var inv = ["+health","Item 2","Item 3"]; // inventory
 var invindx = 0; // inventory index
@@ -89,3 +86,6 @@ function randomEvent() {
             break;
     }
 }
+
+document.body.onload = invChange(0); // filling inventory window when page loads
+document.body.onload = invListing(); // filling inventory list when page loads

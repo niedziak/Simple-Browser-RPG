@@ -1,5 +1,5 @@
 var plyr_hp = 100; // player's hp
-var inv = ["+health","Item 2","Item 3"]; // inventory
+var inv = ["Parówa","Miodek","Uran"]; // inventory
 var invindx = 0; // inventory index
 
 // change in player's hp
@@ -16,37 +16,46 @@ function hpChange(mindmg,maxdmg,bnsdmg) {
     document.getElementById("hpWindow").innerHTML = plyr_hp;
 }
 
-// using item
-function useItem() {
-    switch (inv[invindx]) { //item effect check
-        case "+health":
-            hpChange(0,0,10);
-            break;
-        default:
-            break;
-    }
-
-    inv.splice(invindx,1); //removing item from inventory
-
-    invListing(); // updating items list after remove
+// using inventory item
+function invUse() {
+	switch (inv[invindx]) {
+		case "Parówa":
+			hpChange(0,0,10);
+			break;
+		case "Miodek":
+			hpChange(0,0,5);
+			break;
+		case "Uran":
+			hpChange(0,0,-15);
+			break;
+		default:
+			break;
+	}
+	inv.splice(invindx,1);
+	invListing();
+	invChange(0);	
 }
 
 // cycling items in inventory
 function invChange(chng) {
     invindx += chng;
-
-    if (invindx <= -1) {
-        invindx = inv.length - 1;
-    } else if (invindx >= inv.length) {
-        invindx = 0;
-    }
-
-    document.getElementById("invWindow").innerHTML = inv[invindx];
+	
+	if (inv.length != 0) {
+		if (invindx <= -1) {
+			invindx = inv.length - 1;
+		} else if (invindx >= inv.length) {
+			invindx = 0;
+		}
+		document.getElementById("invWindow").innerHTML = inv[invindx];
+	} else {
+		document.getElementById("invWindow").innerHTML = "EMPTY";
+	}
 }
 
 // inventory list
 function invListing() {
-    var invL = "";
+    inv.sort();
+	var invL = "";
     var i = 0;
     for (; i < inv.length ;) {
         invL += inv[i] + "<br>";
@@ -59,27 +68,31 @@ function invListing() {
 function randomEvent() {
     switch (Math.ceil(Math.random()*10)) {
         case 1:
-            document.getElementById("rndevtWindow").innerHTML = "Event 1";
+            document.getElementById("rndevtWindow").innerHTML = "Znalazłeś URAN!!!";
+			inv.push("Uran");
+			invListing();
             break;
         case 2:
         case 3:
-            document.getElementById("rndevtWindow").innerHTML = "Event 2";
+			document.getElementById("rndevtWindow").innerHTML = "Znalazłeś parówę!";
+			inv.push("Parówa");
+			invListing();
             break;
-        // adding +health item to inventory
         case 4:
         case 5:
         case 6:
-            document.getElementById("rndevtWindow").innerHTML = "You get +health";
-            inv.push("+health"); // adding item to inventory array
-            invListing(); // updating inventory list after getting new item
+            document.getElementById("rndevtWindow").innerHTML = "Znalazłeś miodek!";
+			inv.push("Miodek");
+			invListing();
             break;
         case 7:
         case 8:
         case 9:
-            document.getElementById("rndevtWindow").innerHTML = "Event 4";
+            document.getElementById("rndevtWindow").innerHTML = "Nic się nie stało.";
             break;
         case 10:
-            document.getElementById("rndevtWindow").innerHTML = "Event 5";
+            document.getElementById("rndevtWindow").innerHTML = "Wywalenie prądu!";
+			hpChange(0,0,-10);
             break;  
         default:
             document.getElementById("rndevtWindow").innerHTML = "default";

@@ -1,5 +1,5 @@
 var plyr_hp = 100; // player's hp
-var inv = ["Parówa","Miodek","Uran"]; // inventory
+var inv = ["Parówa","Miodek","Uran","Miodek","Parówa","Parówa"]; // inventory
 var invindx = 0; // inventory index
 
 // change in player's hp
@@ -33,34 +33,56 @@ function invUse() {
 	}
 	inv.splice(invindx,1);
 	invListing();
-	invChange(0);	
+    invChange(0);
 }
 
 // cycling items in inventory
-function invChange(chng) {
-    invindx += chng;
+function invChange(chng) {	
+        // checking if inventory is empty
+        if (inv.length != 0) {
+            if (chng != 0) {            
+                     invindx += chng; // changing index
+                     
+                    // looping around edge of inventory
+                    if (invindx <= -1) {
+                        invindx = inv.length - 1;
+                    } 
 
-	if (inv.length != 0) {
-		if (invindx <= -1) {
-			invindx = inv.length - 1;
-		} else if (invindx >= inv.length) {
-			invindx = 0;
-		}
-		document.getElementById("invWindow").innerHTML = inv[invindx];
-	} else {
-		document.getElementById("invWindow").innerHTML = "EMPTY";
-	}
+                    while (inv[invindx] == inv[invindx - chng]) {
+                        invindx += chng;
+
+                        if (invindx <= -1) {
+                            invindx = inv.length - 1;
+                        }
+                    }
+
+                    if (invindx >= inv.length) {
+                        invindx = 0;
+                    }
+                }
+                document.getElementById("invWindow").innerHTML = inv[invindx];
+        } else {
+            document.getElementById("invWindow").innerHTML = "EMPTY";
+        }
 }
 
 // inventory list
 function invListing() {
     inv.sort();
 	var invL = "";
-    var i = 0;
-    for (; i < inv.length ;) {
-        invL += inv[i] + "<br>";
-        i++;
-    }
+    for (i = 0, ic = 0, invC = inv[0] ; i <= inv.length ; i++) {
+        if (inv[i] == invC) {
+            ic++;
+        } else {
+            if (ic == 1) {
+                invL += invC  + "<br>";
+            } else {
+            invL += invC + " x" + ic + "<br>";
+            }
+            invC = inv[i];
+            ic = 1;
+        }
+}
     document.getElementById("invList").innerHTML = invL;
 }
 
@@ -100,5 +122,5 @@ function randomEvent() {
     }
 }
 
-document.body.onload = invChange(0); // filling inventory window when page loads
 document.body.onload = invListing(); // filling inventory list when page loads
+document.body.onload = document.getElementById("invWindow").innerHTML = inv[invindx]; // filling inventory window when page loads

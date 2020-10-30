@@ -1,5 +1,5 @@
 var plyr_hp = 100; // player's hp
-var inv = ["Parówa","Miodek","Uran","Miodek","Parówa","Parówa"]; // inventory
+var inv = ["Parówa","Miodek","Uran","Miodek","Parówa","Parówa","Uran"]; // inventory
 var invindx = 0; // inventory index
 
 // change in player's hp
@@ -41,29 +41,44 @@ function invChange(chng) {
         // checking if inventory is empty
         if (inv.length != 0) {
             if (chng != 0) {            
-                     invindx += chng; // changing index
+                    invindx += chng; // changing index
                      
-                    // looping around edge of inventory
+                    // looping through beginning of the array
                     if (invindx <= -1) {
                         invindx = inv.length - 1;
                     } 
 
-                    while (inv[invindx] == inv[invindx - chng]) {
+                    while (inv[invindx] == inv[invindx - 1]) {
                         invindx += chng;
 
                         if (invindx <= -1) {
                             invindx = inv.length - 1;
                         }
                     }
-
-                    if (invindx >= inv.length) {
-                        invindx = 0;
-                    }
                 }
-                document.getElementById("invWindow").innerHTML = inv[invindx];
+
+                // looping through end of the array
+                if (invindx >= inv.length) {
+                    invindx = 0;
+                }
+
+                switch (inv[invindx]) {
+                    case "Parówa":
+                        document.getElementById("invWin").src = "images/parowa.png";
+                        break;
+                    case "Miodek":
+                        document.getElementById("invWin").src = "images/miod.png";
+                        break;
+                    case "Uran":
+                        document.getElementById("invWin").src = "images/uranium.png";
+                        break;
+                    default:
+                        break;
+                }
         } else {
-            document.getElementById("invWindow").innerHTML = "EMPTY";
+            document.getElementById("invWin").src = "images/empty.png";
         }
+
 }
 
 // inventory list
@@ -92,20 +107,23 @@ function randomEvent() {
         case 1:
             document.getElementById("rndevtWindow").innerHTML = "Znalazłeś URAN!!!";
 			inv.push("Uran");
-			invListing();
+            invListing();
+            invChange(0);
             break;
         case 2:
         case 3:
 			document.getElementById("rndevtWindow").innerHTML = "Znalazłeś parówę!";
 			inv.push("Parówa");
-			invListing();
+            invListing();
+            invChange(0);
             break;
         case 4:
         case 5:
         case 6:
             document.getElementById("rndevtWindow").innerHTML = "Znalazłeś miodek!";
 			inv.push("Miodek");
-			invListing();
+            invListing();
+            invChange(0);
             break;
         case 7:
         case 8:
@@ -123,4 +141,4 @@ function randomEvent() {
 }
 
 document.body.onload = invListing(); // filling inventory list when page loads
-document.body.onload = document.getElementById("invWindow").innerHTML = inv[invindx]; // filling inventory window when page loads
+document.body.onload = invChange(0); // filling inventory window when page loads

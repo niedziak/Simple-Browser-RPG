@@ -4,6 +4,7 @@
   }
 
 * {
+    box-sizing: border-box;
     outline: none;
 }
 
@@ -43,17 +44,17 @@ div.randomEvents {
     margin: 5px auto;
 }
 
+/* player bar */
 div.playerBar {
-    display: inline-block;
     float: right;
-    width: 120px;    
+    width: 120px;
+    margin: 0px;
 }
 
 div.hpCounter {
     display: inline-block;
-    width: 100px;
     padding: 3px 8px;
-    margin: 5px auto;
+    margin: 5px 0px;
 }
 
 p.hpCounter {
@@ -61,14 +62,19 @@ p.hpCounter {
     font-size: 150%;
 }
 
+div.invWindow {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 5px 0px;
+}
+
+img.invWindow {
+    height: 90px;
+    width: 90px;
+    margin: auto;
+}
+
 button.invButton {
     color: var(--main-text-color);
     background-color: var(--main-bg-color);
-}
-
-.inv {
-    display: inline-block;
-    width: 100px;
-    padding: 3px 5px;
-    margin: 5px auto;
 }

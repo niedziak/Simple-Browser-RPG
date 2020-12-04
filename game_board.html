@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playing Board</title>
+    <style>
+        body{
+            background-color: black;
+            color: cornsilk;
+            text-align: center;
+            font-size: x-large;
+        }
+
+        table{
+            border: 2px solid white;
+            margin: auto;
+            padding: 5px;
+        }
+
+        td{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- board -->
+    <table>
+        <tr>
+            <td id="11">A</td> <td id="12">B</td> <td id="13">C</td>
+        </tr>
+        <tr>
+            <td id="21">D</td> <td id="22">E</td> <td id="23">F</td>
+        </tr>
+        <tr>
+            <td id="31">G</td> <td id="32">H</td> <td id="33">I</td>
+        </tr>
+    </table>
+
+    <!-- player position -->
+    <p id="playerPosition">E</p>
+
+    <!-- movement buttons -->
+    <div>
+        <button id="upButton" onclick="playerMove(0,-1)">UP</button> <br>
+        <button id="leftButton" onclick="playerMove(-1,0)">LEFT</button> <button id="rightButton" onclick="playerMove(1,0)">RIGHT</button> <br>
+        <button id="downButton" onclick="playerMove(0,1)">DOWN</button>
+    </div>
+
+    <script>
+    // board array
+        var board=[
+            ["A","B","C"],
+            ["D","E","F"],
+            ["G","H","I"]
+        ];
+
+    // player position
+        var playerPos_x = 1, playerPos_y = 1;
+
+    // function to move player
+        function playerMove(X,Y) {
+            playerPos_x += X;
+            playerPos_y += Y;
+
+            if (playerPos_y < 0) {
+                playerPos_y = 0;
+            } else if (playerPos_y == board.length) {
+                playerPos_y = (board.length) - 1;
+            }
+
+            if (playerPos_x < 0) {
+                playerPos_x = 0;
+            } else if (playerPos_x == board[playerPos_y].length) {
+                playerPos_x = (board[playerPos_y].length) - 1;
+            }
+
+            document.getElementById("playerPosition").innerHTML = board[playerPos_y][playerPos_x];
+        }
+    </script>
+</body>
+</html>

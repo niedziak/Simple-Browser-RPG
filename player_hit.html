@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player hit</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-size: 500%;
+        }
+
+        p {
+            display: inline-block;
+        }
+
+        button {
+            font-size: 150%;
+            padding: 50px;
+            border: 0px solid white;
+            border-radius: 20px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <p>Player HP:</p> <p id="playerHP">100</p>
+    <br>
+    <button onclick='changeHP(-10)'>Player HIT</button>
+    <button onclick='changeHP(10)'>Player HEAL</button>
+
+    <script>
+        var playerHP = 100;
+
+        function changeHP(dmg) {
+            playerHP += dmg;
+
+            if (playerHP < 0) {
+                playerHP = 0;
+            } else if (playerHP > 100) {
+                playerHP = 100;
+            }
+
+            document.getElementById("playerHP").innerHTML = playerHP;
+        }
+    </script>
+</body>
+</html>
